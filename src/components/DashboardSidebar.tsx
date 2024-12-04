@@ -6,6 +6,7 @@ import {
   Bell,
   Settings,
 } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 import {
   Sidebar,
   SidebarContent,
@@ -27,6 +28,8 @@ const menuItems = [
 ];
 
 export function DashboardSidebar() {
+  const location = useLocation();
+
   return (
     <Sidebar>
       <SidebarContent>
@@ -39,10 +42,17 @@ export function DashboardSidebar() {
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.path} className="flex items-center gap-2 px-4 py-2 hover:bg-primary hover:text-white rounded-md transition-colors">
+                    <Link
+                      to={item.path}
+                      className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${
+                        location.pathname === item.path
+                          ? "bg-[#9B87F5] text-white"
+                          : "hover:bg-[#9B87F5] hover:text-white"
+                      }`}
+                    >
                       <item.icon className="h-5 w-5" />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
